@@ -2,31 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export const Admission = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    whatsapp: '',
-    message: ''
-  });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setMessage(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const formData = new FormData(event.target);
 
     try {
-      const response = await axios.post('http://maliki-mcc-backend-production.up.railway.app/submit-form', formData, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      const response = await axios.post('https://your-backend-url/submit-form', {
+        name: formData.get('name'),
+        whatsapp: formData.get('whatsapp'),
+        message: formData.get('message'),
       });
-      alert(response.data.message);
+
+      if (response.status === 200) {
+        setMessage({ type: 'success', text: 'Data submitted successfully!' });
+      } else {
+        setMessage({ type: 'error', text: 'Failed to submit data.' });
+      }
     } catch (error) {
-      console.error('There was an error!', error);
+      setMessage({ type: 'error', text: 'Failed to submit data.' });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,16 +36,24 @@ export const Admission = () => {
       <div className="daftar-left">
         <form onSubmit={handleSubmit} className="daftar-form">
           <div>
-            <input type="text" placeholder="Masukkan Nama Anda" name="name" onChange={handleChange} />
+            <input type="text" placeholder="Masukkan Nama Anda" name="name" required />
           </div>
           <div>
-            <input type="text" placeholder="Masukkan Nomer WhatsApp Anda" name="whatsapp" onChange={handleChange} />
+            <input type="text" placeholder="Masukkan Nomer WhatsApp Anda" name="whatsapp" required />
           </div>
           <div>
-            <textarea name="message" id="message" cols="30" rows="10" placeholder="Masukkan key-message untuk mendaftar" onChange={handleChange}></textarea>
+            <textarea name="message" id="message" cols="30" rows="10" placeholder="Masukkan key-message untuk mendaftar" required></textarea>
           </div>
           <div>
-            <button className="btn-submit">Daftar Menjadi Anggota</button>
+            <button type="submit" className="btn-submit" disabled={loading}>
+              {loading ? (
+                <div className="spinner-border text-light" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                'Daftar Menjadi Anggota'
+              )}
+            </button>
           </div>
         </form>
       </div>
@@ -86,6 +95,13 @@ export const Admission = () => {
           </div>
         </div>
       </div>
+
+      {message && (
+        <div className={`popup-message ${message.type}`}>
+          {message.text}
+        </div>
+      )}
+
     </div>
   );
 };
