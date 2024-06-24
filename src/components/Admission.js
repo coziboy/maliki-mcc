@@ -49,10 +49,9 @@ export const Admission = () => {
             <button type="submit" className="btn-submit" disabled={loading}>
               {loading ? (
                 <ClipLoader
-                color={color}
+                color="white"
                 loading={loading}
-                cssOverride={override}
-                size={150}
+                size={50}
                 aria-label="Loading Spinner"
                 data-testid="loader"
               />
