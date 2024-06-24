@@ -2,6 +2,7 @@ import React from 'react';
 import { Activities } from './Activities';
 import { Masterpieces } from './Masterpieces';
 import { Admission } from './Admission';
+import { Footer } from './Footer';
 
 export const MainContent = () => {
   return (
