@@ -19,13 +19,15 @@ export const Admission = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://your-backend-url/send-email.php', formData);
+      const response = await axios.post('http:/maliki-mcc-backend-production.up.railway.app/submit-form', formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       alert(response.data.message);
     } catch (error) {
-      alert('Failed to send email. Please try again later.');
+      console.error('There was an error!', error);
     }
-
-    setFormData({ name: '', whatsapp: '', message: '' });
   };
 
   return (
@@ -33,36 +35,16 @@ export const Admission = () => {
       <div className="daftar-left">
         <form onSubmit={handleSubmit} className="daftar-form">
           <div>
-            <input
-              type="text"
-              placeholder="Masukkan Nama Anda"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
+            <input type="text" placeholder="Masukkan Nama Anda" name="name" onChange={handleChange} />
           </div>
           <div>
-            <input
-              type="text"
-              placeholder="Masukkan Nomer WhatsApp Anda"
-              name="whatsapp"
-              value={formData.whatsapp}
-              onChange={handleChange}
-            />
+            <input type="text" placeholder="Masukkan Nomer WhatsApp Anda" name="whatsapp" onChange={handleChange} />
           </div>
           <div>
-            <textarea
-              name="message"
-              id="message"
-              cols="30"
-              rows="10"
-              placeholder="Masukkan key-message untuk mendaftar"
-              value={formData.message}
-              onChange={handleChange}
-            />
+            <textarea name="message" id="message" cols="30" rows="10" placeholder="Masukkan key-message untuk mendaftar" onChange={handleChange}></textarea>
           </div>
           <div>
-            <button type="submit" className="btn-submit">Daftar Menjadi Anggota</button>
+            <button className="btn-submit">Daftar Menjadi Anggota</button>
           </div>
         </form>
       </div>
