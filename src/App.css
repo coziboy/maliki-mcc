@@ -455,6 +455,10 @@ input:focus {
 
 .daftar-item-detail h4 {
   margin-bottom: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }
 
 .popup-message {
