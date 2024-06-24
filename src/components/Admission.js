@@ -13,7 +13,7 @@ export const Admission = () => {
     const formData = new FormData(event.target);
 
     try {
-      const response = await axios.post('https://your-backend-url/submit-form', {
+      const response = await axios.post('https://maliki-mcc-backend-production.up.railway.app/submit-form', {
         name: formData.get('name'),
         whatsapp: formData.get('whatsapp'),
         message: formData.get('message'),
