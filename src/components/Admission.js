@@ -19,7 +19,7 @@ export const Admission = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http:/maliki-mcc-backend-production.up.railway.app/submit-form', formData, {
+      const response = await axios.post('http://maliki-mcc-backend-production.up.railway.app/submit-form', formData, {
         headers: {
           'Content-Type': 'application/json'
         }
