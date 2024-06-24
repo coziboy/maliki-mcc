@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 export const Admission = () => {
   const [loading, setLoading] = useState(false);
@@ -47,9 +48,14 @@ export const Admission = () => {
           <div>
             <button type="submit" className="btn-submit" disabled={loading}>
               {loading ? (
-                <div className="spinner-border text-light" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
+                <ClipLoader
+                color={color}
+                loading={loading}
+                cssOverride={override}
+                size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
               ) : (
                 'Daftar Menjadi Anggota'
               )}
