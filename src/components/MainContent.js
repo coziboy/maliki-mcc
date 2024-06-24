@@ -15,6 +15,9 @@ export const MainContent = () => {
       <section id="daftar">
         <Admission></Admission>
       </section>
+      <footer>
+        <Footer></Footer>
+      </footer>
     </div>
   );
 };
